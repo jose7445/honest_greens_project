@@ -1,7 +1,5 @@
 # Honest Greens Project
 
-This template should help get you started developing with Vue 3 in Vite.
-
 ## Objective
 
 Right now, in Honest Greens we have a big problem. Our customers are getting extreme, and we are facing a confrontation between the Pollo Piri Piri lovers and the Pollo con Hierbas lovers. These two groups of customers can’t hear anything about the other Pollo otherwise they get crazy. So Honest Greens made a big effort to identify a rule to classify our customer database between these groups. The study reveals that customers with a
