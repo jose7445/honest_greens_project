@@ -43,3 +43,4 @@ The goal of this test is to assess your ability to use the Vue.js framework to c
 - Sort users in descending order by name, age or profile.
 - Search users by name, age or profile.
 - Remove sorting filters.
+- Responsive.
