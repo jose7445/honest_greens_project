@@ -10,7 +10,7 @@
         </option>
       </select>
       <button @click="toggleSortOrder" :disabled="!sortColumn">
-        {{ sortOrder === 'asc' ? 'Ascending' : 'Descending' }}
+        <i :class="sortOrder === 'asc' ? 'pi pi-sort-up-fill' : 'pi pi-sort-down-fill'"></i>
       </button>
       <button @click="removeSortOrder" class="trash-icon"><i class="pi pi-trash"></i></button>
     </div>
