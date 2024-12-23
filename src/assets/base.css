@@ -84,37 +84,9 @@ label {
   font-weight: bold;
 }
 
-.filter-elements {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 1rem;
-}
-
-.dropdown-elements {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
 @media (max-width: 768px) {
   body {
     font-size: 14px; /* Ajuste de tamaño de fuente para pantallas más pequeñas */
-  }
-
-  .filter-elements {
-    width: 100%;
-  }
-
-  table {
-    width: 100%;
-    font-size: 0.9rem;
-  }
-
-  .dropdown-elements {
-    flex-direction: column;
   }
 
   select,

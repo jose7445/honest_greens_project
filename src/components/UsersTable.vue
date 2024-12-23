@@ -2,7 +2,7 @@
   <!-- Sort and search elements -->
   <div class="filter-elements">
     <!-- Dropdown element -->
-    <div class="dropdown-elements">
+    <div class="elements">
       <label for="sortColumn">Sort by: </label>
       <select v-model="sortColumn" id="sortColumn">
         <option v-for="(column, index) in filteredColumns" :key="index" :value="column">
@@ -16,7 +16,7 @@
     </div>
 
     <!-- Search element -->
-    <div>
+    <div class="elements">
       <label for="searchColumn">Search by: </label>
       <input type="search" v-model="searchColumn" id="searchColumn" />
     </div>
@@ -122,7 +122,7 @@ export default {
 table {
   width: 50%;
   border-collapse: collapse;
-  margin: 1rem auto;
+  margin: 0 auto;
 }
 th,
 td {
@@ -137,17 +137,17 @@ th {
 }
 
 .filter-elements {
+  width: 50%;
+  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
   padding: 1rem;
   background-color: #5c5c5c;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.dropdown-elements {
+.elements {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -160,5 +160,20 @@ th {
 
 .trash-icon:hover:not(:disabled) {
   background-color: #e26363;
+}
+
+@media (max-width: 768px) {
+  .filter-elements {
+    width: 100%;
+  }
+
+  table {
+    width: 100%;
+    font-size: 0.9rem;
+  }
+
+  .elements {
+    flex-direction: column;
+  }
 }
 </style>
