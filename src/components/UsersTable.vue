@@ -33,7 +33,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, rowIndex) in sortedUsersList" :key="rowIndex">
+        <tr v-for="(item, rowIndex) in filteredUsersList" :key="rowIndex">
           <td v-for="(column, colIndex) in columns" :key="colIndex">
             {{ item[column] }}
           </td>
@@ -65,7 +65,7 @@ export default {
     })
 
     // Computed property to sort and search elements in table
-    const sortedUsersList = computed(() => {
+    const filteredUsersList = computed(() => {
       let filteredList = [...usersList.value]
 
       // Search filter by name, age and profile
@@ -97,6 +97,7 @@ export default {
       sortOrder.value = sortOrder.value === 'asc' ? 'desc' : 'asc'
     }
 
+    // Remove sort order
     const removeSortOrder = () => {
       sortOrder.value = 'asc'
       sortColumn.value = ''
@@ -107,7 +108,7 @@ export default {
       columns,
       sortColumn,
       sortOrder,
-      sortedUsersList,
+      filteredUsersList,
       toggleSortOrder,
       filteredColumns,
       searchColumn,
@@ -117,7 +118,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 table {
   width: 50%;
   border-collapse: collapse;
