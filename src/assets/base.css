@@ -39,7 +39,7 @@ input[type='search'] {
   border-radius: 5px;
   border: 1px solid #ccc;
   font-size: 1rem;
-  width: 200px;
+  width: 100%;
   background-color: #333;
   color: #f7f7f7;
   transition: border-color 0.3s;
@@ -86,7 +86,7 @@ label {
 
 @media (max-width: 768px) {
   body {
-    font-size: 14px; /* Ajuste de tamaño de fuente para pantallas más pequeñas */
+    font-size: 14px;
   }
 
   select,

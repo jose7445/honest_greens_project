@@ -3,7 +3,7 @@
   <div class="filter-elements">
     <!-- Dropdown element -->
     <div class="elements">
-      <label for="sortColumn">Sort by: </label>
+      <label for="sortColumn">Sort: </label>
       <select v-model="sortColumn" id="sortColumn">
         <option v-for="(column, index) in filteredColumns" :key="index" :value="column">
           {{ column ? column.charAt(0).toUpperCase() + column.slice(1) : '' }}
@@ -17,30 +17,28 @@
 
     <!-- Search element -->
     <div class="elements">
-      <label for="searchColumn">Search by: </label>
+      <label for="searchColumn">Search: </label>
       <input type="search" v-model="searchColumn" id="searchColumn" />
     </div>
   </div>
 
   <!-- Users list table -->
-  <div>
-    <table>
-      <thead>
-        <tr>
-          <th v-for="(column, index) in columns" :key="index">
-            {{ column }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item, rowIndex) in filteredUsersList" :key="rowIndex">
-          <td v-for="(column, colIndex) in columns" :key="colIndex">
-            {{ item[column] }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <table>
+    <thead>
+      <tr>
+        <th v-for="(column, index) in columns" :key="index">
+          {{ column ? column.charAt(0).toUpperCase() + column.slice(1) : '' }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="(item, rowIndex) in filteredUsersList" :key="rowIndex">
+        <td v-for="(column, colIndex) in columns" :key="colIndex">
+          {{ item[column] }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </template>
 
 <script>
@@ -64,11 +62,11 @@ export default {
       return columns.value.filter((column) => column !== 'id')
     })
 
-    // Computed property to sort and search elements in table
+    // Function to sort and search elements
     const filteredUsersList = computed(() => {
       let filteredList = [...usersList.value]
 
-      // Search filter by name, age and profile
+      // Searching elements by name, age and profile
       if (searchColumn.value) {
         filteredList = filteredList.filter(
           (item) =>
@@ -92,12 +90,12 @@ export default {
       return filteredList
     })
 
-    // Toggle between ascending and descending order
+    // Toggle button between ascending and descending order
     const toggleSortOrder = () => {
       sortOrder.value = sortOrder.value === 'asc' ? 'desc' : 'asc'
     }
 
-    // Remove sort order
+    // Remove sort order in trash button
     const removeSortOrder = () => {
       sortOrder.value = 'asc'
       sortColumn.value = ''
@@ -120,7 +118,7 @@ export default {
 
 <style scoped>
 table {
-  width: 50%;
+  width: 70%;
   border-collapse: collapse;
   margin: 0 auto;
 }
@@ -137,21 +135,21 @@ th {
 }
 
 .filter-elements {
-  width: 50%;
-  margin: auto;
+  width: 70%;
+  margin: 1rem auto 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
   gap: 1rem;
   padding: 1rem;
   background-color: #5c5c5c;
+  border-radius: 10px 10px 0 0;
 }
 
 .elements {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 0.5rem;
+  flex-grow: 1;
 }
 
 .trash-icon {
@@ -165,6 +163,9 @@ th {
 @media (max-width: 768px) {
   .filter-elements {
     width: 100%;
+    flex-direction: column;
+    margin: 0;
+    border-radius: 0;
   }
 
   table {
@@ -173,6 +174,7 @@ th {
   }
 
   .elements {
+    width: 100%;
     flex-direction: column;
   }
 }
