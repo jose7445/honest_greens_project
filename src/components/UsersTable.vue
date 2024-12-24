@@ -9,16 +9,18 @@
           {{ column ? column.charAt(0).toUpperCase() + column.slice(1) : '' }}
         </option>
       </select>
-      <button @click="toggleSortOrder" :disabled="!sortColumn">
+      <button @click="toggleSortOrder" :disabled="!sortColumn" aria-label="Sort order">
         <i :class="sortOrder === 'asc' ? 'pi pi-sort-up-fill' : 'pi pi-sort-down-fill'"></i>
       </button>
-      <button @click="removeSortOrder" class="trash-icon"><i class="pi pi-trash"></i></button>
+      <button @click="removeSortOrder" :disabled="!sortColumn" class="trash-icon">
+        <i class="pi pi-trash" aria-label="Clear sort order"></i>
+      </button>
     </div>
 
     <!-- Search element -->
     <div class="elements">
       <label for="searchColumn">Search: </label>
-      <input type="search" v-model="searchColumn" id="searchColumn" />
+      <input type="search" v-model="searchColumn" id="searchColumn" placeholder="Search by name" />
     </div>
   </div>
 
@@ -28,14 +30,24 @@
       <tr>
         <th v-for="(column, index) in columns" :key="index">
           {{ column ? column.charAt(0).toUpperCase() + column.slice(1) : '' }}
+          <i
+            v-if="sortColumn"
+            :class="sortOrder === 'asc' ? 'pi pi-sort-up-fill' : 'pi pi-sort-down-fill'"
+            style="color: #007bff"
+          ></i>
         </th>
       </tr>
     </thead>
-    <tbody>
+    <tbody v-if="filteredUsersList.length > 0">
       <tr v-for="(item, rowIndex) in filteredUsersList" :key="rowIndex">
         <td v-for="(column, colIndex) in columns" :key="colIndex">
           {{ item[column] }}
         </td>
+      </tr>
+    </tbody>
+    <tbody v-else>
+      <tr>
+        <td :colspan="columns.length">No users found</td>
       </tr>
     </tbody>
   </table>
@@ -43,7 +55,7 @@
 
 <script>
 import { ref, computed } from 'vue'
-import data from '../data/usersList.json'
+import data from '../data/usersList.json' // Users json list
 
 export default {
   setup() {
@@ -66,13 +78,10 @@ export default {
     const filteredUsersList = computed(() => {
       let filteredList = [...usersList.value]
 
-      // Searching elements by name, age and profile
+      // Searching elements by name
       if (searchColumn.value) {
-        filteredList = filteredList.filter(
-          (item) =>
-            item.name.toLowerCase().includes(searchColumn.value.toLowerCase()) ||
-            String(item.age).toLowerCase().includes(searchColumn.value.toLowerCase()) ||
-            item.profile.toLowerCase().includes(searchColumn.value.toLowerCase()),
+        filteredList = filteredList.filter((item) =>
+          item.name.toLowerCase().includes(searchColumn.value.toLowerCase()),
         )
       }
 
@@ -153,7 +162,11 @@ th {
 }
 
 .trash-icon {
-  background-color: #ff0000;
+  background-color: #c90000;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .trash-icon:hover:not(:disabled) {
